@@ -24,24 +24,27 @@ import (
 	// to ensure that exec-entrypoint and run can make use of them.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
-	"k8s.io/apimachinery/pkg/runtime"
-	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/healthz"
-	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	"k8s.io/apimachinery/pkg/runtime"                   // for managing runtime objects
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"  // for handling errors and panics
+	clientgoscheme "k8s.io/client-go/kubernetes/scheme" // To define the Kubernets API scheme
+	ctrl "sigs.k8s.io/controller-runtime"               // for building kubernetes controllers
+	"sigs.k8s.io/controller-runtime/pkg/healthz"        // for health checkpoints
+	"sigs.k8s.io/controller-runtime/pkg/log/zap"        // zap logging library
 
 	batchv1 "tutorial.kubebuilder.io/project/api/v1"
 	"tutorial.kubebuilder.io/project/controllers"
 	//+kubebuilder:scaffold:imports
 )
 
+// creating a scheme, which is a mapping between Kinds and Go struct types.
 var (
-	scheme   = runtime.NewScheme()
-	setupLog = ctrl.Log.WithName("setup")
+	scheme   = runtime.NewScheme()        // new empty instance of scheme type
+	setupLog = ctrl.Log.WithName("setup") // new instance of logger provided by sigs.k8s.io/controller-runtime package.
 )
 
 func init() {
+	// clientsgoscheme.AddToScheme(scheme) is used to add core types like Pod, deployment etc to the scheme (check learning.md for why)
+	// utilruntime.Must is used to panic if there is an error in adding core types.
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(batchv1.AddToScheme(scheme))
