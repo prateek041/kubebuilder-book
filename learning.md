@@ -31,3 +31,10 @@ Scheme is a way to keep track of which Go type corresponds to a given GroupVersi
 It is made of three words, group, version and kind. It is a system that helps you to find what you need, in kubernetes, you need something to uniquely identify a resource. It can be done using GroupVersionKind. Group tells the API group to which the instance belongs. Since there can be many versions of the same API group name, you can specify the version as well. finally comes the Kind of the instance.
 
 So if you create a new Custom Resource, you would have to give it a API group, an API version and a kind to uniquely identify it in the cluster.
+
+## Controllers
+
+Controllers are what try to match the expected state and current state of a resource.
+
+- Each controller interacts with one root kind
+- Reconcilers are the interface that implement the reconciliation task.
