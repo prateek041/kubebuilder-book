@@ -29,9 +29,11 @@ import (
 
 // CronJobReconciler reconciles a CronJob object
 type CronJobReconciler struct {
-	client.Client
-	Scheme *runtime.Scheme
+	client.Client                 // this knows how to do CRUD operation using k8s API.
+	Scheme        *runtime.Scheme // for serialization and deserialization.
 }
+
+// below are the RBAC markers, that provide the RBAC functionality since the reconcilers run on kubernetes itself
 
 //+kubebuilder:rbac:groups=batch.tutorial.kubebuilder.io,resources=cronjobs,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=batch.tutorial.kubebuilder.io,resources=cronjobs/status,verbs=get;update;patch

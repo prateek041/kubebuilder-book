@@ -89,7 +89,7 @@ const (
 	ReplaceConcurrent ConcurrencyPolicy = "Replace"
 )
 
-// CronJobStatus defines the observed state of CronJob
+// CronJobStatus defines the observed state of CronJob. We define it by thinking what we need users or other controllers to be able to access.
 type CronJobStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
